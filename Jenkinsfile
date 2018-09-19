@@ -1,5 +1,7 @@
 pipeline {
-    linux-pool
+    agent {
+     label : 'linux-pool' 
+    }
 
     stages {
         stage('Build') {
