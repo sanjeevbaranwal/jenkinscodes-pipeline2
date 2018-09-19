@@ -2,7 +2,22 @@
 // see https://documentation.cloudbees.com/docs/cookbook/_pipeline_dsl_keywords.html for dsl reference
 // This Jenkinsfile should simulate a minimal Jenkins pipeline and can serve as a starting point.
 // NOTE: sleep commands are solelely inserted for the purpose of simulating long running tasks when you run the pipeline
-node {
+
+pipeline {
+    agent linux-pool
+
+    parameters {
+         string(name: 'tomcat_dev', defaultValue: '35.166.210.154', description: 'Staging Server')
+         string(name: 'tomcat_prod', defaultValue: '34.209.233.6', description: 'Production Server')
+    }
+
+    triggers {
+         pollSCM('* * * * *')
+     }
+
+	 
+Stages {
+{
    // Mark the code checkout 'stage'....
      stage 'checkout'
 
@@ -33,17 +48,5 @@ node {
    //archive 'target/*.jar'
 }
 
-
-node {
-   stage 'deploy Canary'
-   sh 'echo "write your deploy code here"; sleep 5;'
-   sh '(sshpass -p "tomcat" scp README.md tomcat@18.220.169.91:/tmp)'
-   
-   stage 'ansible'
-   sh 'ansible --version'
-
-   stage 'deploy Production'
-   input 'Proceed?'
-   //sh 'echo "write your deploy code here"; sleep 6;'
-   //archive 'target/*.jar'
+}
 }
