@@ -19,8 +19,7 @@ pipeline {
 			def mvnHome = tool 'mvn'
 		    sh "${mvnHome}/bin/mvn versions:set -DnewVersion=$bname.${env.BUILD_NUMBER}.${env.BUILD_TIMESTAMP}"
 		    sh "${mvnHome}/bin/mvn package"
-				
-            }
+			}
         }
         stage('Test') {
             steps {
@@ -38,8 +37,7 @@ pipeline {
 				echo 'Deploying....'
 			}
 		}
-		}
-		
+			
 		
         stage('Deploy') {
             steps {
