@@ -14,7 +14,7 @@ pipeline {
     }
     
    tools {
-        maven 'mvn'
+        mvnHome 'mvn'
     }
    	
     stages {
