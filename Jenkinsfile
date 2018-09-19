@@ -12,9 +12,11 @@ pipeline {
     triggers {
 		 pollSCM('* * * * *')
     }
-
-    def mvnHome = tool 'mvn'
-	
+    
+   tools {
+        maven 'mvn'
+    }
+   	
     stages {
         stage('Build') {
             steps {
