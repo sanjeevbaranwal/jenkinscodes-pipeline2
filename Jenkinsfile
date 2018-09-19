@@ -18,13 +18,6 @@ pipeline {
 	 
 Stages {
 {
-   // Mark the code checkout 'stage'....
-     stage 'checkout'
-
-   // Get some code from a GitHub repository
-   git url: 'https://github.com/sanjeevbaranwal/Jenkinscodes-pipeline2.git'
-   sh 'git clean -fdx; sleep 4;'
-
    // Get the maven tool.
    // ** NOTE: This 'mvn' maven tool must be configured
    // **       in the global configuration.
