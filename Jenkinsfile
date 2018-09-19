@@ -13,11 +13,13 @@ pipeline {
 		 pollSCM('* * * * *')
     }
 
+    def mvnHome = tool 'mvn'
+	
     stages {
         stage('Build') {
             steps {
                 echo 'Building..'
-	        def mvnHome = tool 'mvn'
+	       
 		sh "${mvnHome}/bin/mvn versions:set -DnewVersion=$bname.${env.BUILD_NUMBER}.${env.BUILD_TIMESTAMP}"
 		sh "${mvnHome}/bin/mvn package"
             }
