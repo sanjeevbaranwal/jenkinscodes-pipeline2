@@ -1,6 +1,6 @@
 pipeline {
     agent {
-     label : 'linux-pool' 
+     label 'linux-pool' 
     }
 
     stages {
