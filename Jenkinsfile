@@ -9,9 +9,7 @@ pipeline {
 	 string(name: 'bname', defaultValue: '1.2', description: 'Environment build Variable')
     }
     
-    triggers {
-		 pollSCM('* * 1 * *')
-    }
+   
     
    tools {
         mvnHome 'mvn'
