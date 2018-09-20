@@ -9,19 +9,18 @@ pipeline {
 	 string(name: 'bname', defaultValue: '1.2', description: 'Environment build Variable')
     }
     
-   
+    triggers {
+         pollSCM('* * 1 * *')
+     }
     
-   tools {
-        mvnHome 'mvn'
-    }
-   	
+
     stages {
         stage('Build') {
             steps {
                 echo 'Building..'
 	       
-		sh "${mvnHome}/bin/mvn versions:set -DnewVersion=$bname.${env.BUILD_NUMBER}.${env.BUILD_TIMESTAMP}"
-		sh "${mvnHome}/bin/mvn package"
+		//sh "${mvnHome}/bin/mvn versions:set -DnewVersion=$bname.${env.BUILD_NUMBER}.${env.BUILD_TIMESTAMP}"
+		//sh "${mvnHome}/bin/mvn package"
             }
         }
         stage('Test') {
