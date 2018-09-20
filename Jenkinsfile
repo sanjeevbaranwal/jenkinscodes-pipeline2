@@ -23,8 +23,8 @@ pipeline {
                 echo 'Building..'
 	        echo "PATH = ${PATH}"
                 echo "M2_HOME = ${M2_HOME}"
-                //sh "${mvnHome}/bin/mvn versions:set -DnewVersion=$bname.${env.BUILD_NUMBER}.${env.BUILD_TIMESTAMP}"
-		//sh "${mvnHome}/bin/mvn package"
+                sh "${M2_HOME}/bin/mvn versions:set -DnewVersion=$bname.${env.BUILD_NUMBER}.${env.BUILD_TIMESTAMP}"
+		sh "${M2_HOME}/bin/mvn package"
             }
         }
         stage('Test') {
