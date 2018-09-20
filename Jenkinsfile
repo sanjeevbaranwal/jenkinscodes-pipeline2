@@ -21,8 +21,9 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-	       
-		//sh "${mvnHome}/bin/mvn versions:set -DnewVersion=$bname.${env.BUILD_NUMBER}.${env.BUILD_TIMESTAMP}"
+	        echo "PATH = ${PATH}"
+                echo "M2_HOME = ${M2_HOME}"
+                //sh "${mvnHome}/bin/mvn versions:set -DnewVersion=$bname.${env.BUILD_NUMBER}.${env.BUILD_TIMESTAMP}"
 		//sh "${mvnHome}/bin/mvn package"
             }
         }
