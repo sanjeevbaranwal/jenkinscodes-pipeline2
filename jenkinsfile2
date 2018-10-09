@@ -1,0 +1,50 @@
+pipeline {
+    agent any
+    
+    parameters {
+	 string(name: 'tomcat_server', defaultValue: '18.220.169.91', description: 'Dev/Demo Server')
+	 string(name: 'tomcat_pass', defaultValue: 'tomcat', description: 'ServerPass')
+	 string(name: 'component_name', defaultValue: 'HMIPlatform', description: 'NameOfComponent')
+	 string(name: 'bname', defaultValue: '1.2', description: 'Environment build Variable')
+    }
+    
+    triggers {
+         pollSCM('* * 1 * *')
+     }
+    
+    tools { 
+        maven 'maven' 
+        gradle 'gradle' 
+		
+     }
+
+
+    stages {
+        stage('Build') {
+            steps {
+               echo 'Building..'
+	           echo "PATH = ${PATH}"
+	           sh "'/home/sanjeev/.jenkins/tools/hudson.plugins.gradle.GradleInstallation/gradle/bin/gradle' clean build"
+           }
+       }
+
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
+		stage ('Deployment'){
+		    steps {
+		   input 'Proceed?'
+		   sh 'echo "write your deploy code here"; sleep 5;'
+		   sh '(cp ${JENKINS_HOME}/workspace/${JOB_NAME}/build/libs/*.war $component_name.war)'
+           sh '(sshpass -p $tomcat_pass scp *.war tomcat@${tomcat_server}:/tmp)'
+           }   
+        }
+    }
+}
